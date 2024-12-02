@@ -47,7 +47,7 @@ function Game() {
       tg.disableVerticalSwipes();
       tg.requestFullscreen();
       tg.lockOrientation();
-      login(user, tg);
+      // login(user, tg);
     }
   }, [tg, user]);
 
