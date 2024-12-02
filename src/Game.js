@@ -32,6 +32,7 @@ function Game() {
   const [selected, setSelected] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [moveHistory, setMoveHistory] = useState([]);
+  const [isGameOver, setIsGameOver] = useState(false);
   const { tg, user } = useTelegram();
 
   // Сохранение состояния игры при каждом изменении
@@ -122,6 +123,20 @@ function Game() {
     [isValidMove]
   );
 
+  const checkGameOver = useCallback(() => {
+    // Проверка, есть ли возможные ходы у любой фишки
+    const hasValidMoves = board.some((row, y) =>
+      row.some((cell, x) => cell === 1 && getValidMoves(x, y).length > 0)
+    );
+
+    setIsGameOver(!hasValidMoves);
+  }, [board, getValidMoves]);
+
+  // Вызывать после каждого хода
+  useEffect(() => {
+    checkGameOver();
+  }, [board, checkGameOver]);
+
   const movePiece = useCallback(
     (x1, y1, x2, y2) => {
       const newBoard = board.map((row) => [...row]);
@@ -142,6 +157,8 @@ function Game() {
 
   const handleCellClick = useCallback(
     (x, y) => {
+      if (isGameOver) return;
+
       // Если выбрана другая фишка, автоматически сменить выделение
       if (
         selected &&
@@ -167,7 +184,7 @@ function Game() {
         setPossibleMoves(getValidMoves(x, y));
       }
     },
-    [board, selected, isValidMove, movePiece, getValidMoves]
+    [board, selected, isValidMove, movePiece, getValidMoves, isGameOver]
   );
 
   const renderCell = useCallback(
@@ -205,13 +222,18 @@ function Game() {
     [selected, possibleMoves, handleCellClick]
   );
 
-  // const remaining = board.flat().filter((cell) => cell === 1).length;
+  const remaining = board.flat().filter((cell) => cell === 1).length;
 
   return (
     <div className="Game">
       <div className="header">
         <div className="logotype"></div>
-        {/* <div className="game-info">Осталось: {remaining}</div> */}
+        <div className="remaining">
+          {isGameOver && (
+            <img src={"/assets/digits_danger/" + remaining + ".svg"} />
+          )}
+          {!isGameOver && <img src={"/assets/digits/" + remaining + ".svg"} />}
+        </div>
       </div>
       <div className="board">
         {board.map((row, y) => row.map((cell, x) => renderCell(cell, x, y)))}

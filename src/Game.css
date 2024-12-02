@@ -21,6 +21,7 @@
   padding-top: 3rem;
   padding-bottom: 1.5rem;
   border: var(--test-box);
+  text-align: center;
 
   @media (min-width: 400px) {
     padding-top: 5rem;
@@ -31,6 +32,11 @@
     padding-top: 1rem;
     padding-bottom: 1.5rem;
   }
+}
+
+.remaining img {
+  width: 72px;
+  height: 26px;
 }
 
 .logotype {
