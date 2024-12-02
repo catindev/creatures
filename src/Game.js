@@ -37,9 +37,7 @@ function Game() {
   // Сохранение состояния игры при каждом изменении
   useEffect(() => {
     localStorage.setItem("TheCreatures", JSON.stringify(board));
-  }, [board]);
 
-  useEffect(() => {
     if (tg && user) {
       tg.setHeaderColor("#42424C");
       tg.setBackgroundColor("#42424C");
@@ -49,7 +47,7 @@ function Game() {
       tg.lockOrientation();
       // login(user, tg);
     }
-  }, [tg, user]);
+  }, [board, tg, user]);
 
   // Сохранение истории ходов
   const saveMove = useCallback(
