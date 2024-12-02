@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { useTelegram } from "./useTelegram.js";
 import "./Game.css";
 
 const INITIAL_BOARD = [
@@ -21,7 +22,7 @@ const DIRECTIONS = [
 function Game() {
   // Загрузка последнего состояния игры из localStorage
   const getInitialBoard = () => {
-    const savedGame = localStorage.getItem("pegSolitaireGame");
+    const savedGame = localStorage.getItem("TheCreatures");
     return savedGame
       ? JSON.parse(savedGame)
       : INITIAL_BOARD.map((row) => [...row]);
@@ -31,11 +32,24 @@ function Game() {
   const [selected, setSelected] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [moveHistory, setMoveHistory] = useState([]);
+  const { tg, user } = useTelegram();
 
   // Сохранение состояния игры при каждом изменении
   useEffect(() => {
-    localStorage.setItem("pegSolitaireGame", JSON.stringify(board));
+    localStorage.setItem("TheCreatures", JSON.stringify(board));
   }, [board]);
+
+  useEffect(() => {
+    if (tg && user) {
+      tg.setHeaderColor("#42424C");
+      tg.setBackgroundColor("#42424C");
+      tg.expand();
+      tg.disableVerticalSwipes();
+      tg.requestFullscreen();
+      tg.lockOrientation();
+      login(user, tg);
+    }
+  }, [tg, user]);
 
   // Сохранение истории ходов
   const saveMove = useCallback(
@@ -45,7 +59,7 @@ function Game() {
         { from: { x: x1, y: y1 }, to: { x: x2, y: y2 } },
       ];
       setMoveHistory(newMoveHistory);
-      localStorage.setItem("pegSolitaireMoves", JSON.stringify(newMoveHistory));
+      localStorage.setItem("TheCreaturesMoves", JSON.stringify(newMoveHistory));
     },
     [moveHistory]
   );
@@ -56,8 +70,8 @@ function Game() {
     setSelected(null);
     setPossibleMoves([]);
     setMoveHistory([]);
-    localStorage.removeItem("pegSolitaireGame");
-    localStorage.removeItem("pegSolitaireMoves");
+    localStorage.removeItem("TheCreatures");
+    localStorage.removeItem("TheCreaturesMoves");
   }, []);
 
   const isWithinBounds = useCallback(
@@ -181,14 +195,13 @@ function Game() {
     [selected, possibleMoves, handleCellClick]
   );
 
-  // Подсчет оставшихся фишек
-  const remainingPieces = board.flat().filter((cell) => cell === 1).length;
+  // const remaining = board.flat().filter((cell) => cell === 1).length;
 
   return (
     <div className="Game">
       <div className="header">
         <div className="logotype"></div>
-        {/* <div className="game-info">Осталось фишек: {remainingPieces}</div> */}
+        {/* <div className="game-info">Осталось: {remaining}</div> */}
       </div>
       <div className="board">
         {board.map((row, y) => row.map((cell, x) => renderCell(cell, x, y)))}
