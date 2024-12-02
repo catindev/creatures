@@ -1,13 +1,46 @@
-body {
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  /* #42424C */
+  --dark: 66, 66, 76;
+  /* #4E4F57 */
+  --dark-light: 78, 79, 87;
+  /* #FFFEFF */
+  --light: 255, 254, 255;
+  /* #BC5651 */
+  --active: 188, 86, 81;
+
+  --test-box: 0px dotted rgba(255, 0, 0, 0.5);
+}
+
+html,
+body {
+  font-family: Roboto, Arial, sans-serif;
+  color: rgba(var(--light), 1);
+  background-color: rgba(var(--dark), 1);
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  all: unset;
 }
