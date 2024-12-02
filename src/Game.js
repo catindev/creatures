@@ -40,7 +40,7 @@ function Game() {
   }, [board]);
 
   useEffect(() => {
-    if (tg && user && tg.mock !== true) {
+    if (tg && user) {
       tg.setHeaderColor("#42424C");
       tg.setBackgroundColor("#42424C");
       tg.expand();
