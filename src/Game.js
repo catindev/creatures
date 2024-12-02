@@ -49,6 +49,18 @@ function Game() {
     }
   }, [board, tg, user]);
 
+  useEffect(() => {
+    if (tg && user) {
+      tg.setHeaderColor("#BC5651");
+      tg.setBackgroundColor("#42424C");
+      tg.expand();
+      tg.disableVerticalSwipes();
+      tg.requestFullscreen();
+      tg.lockOrientation();
+      // login(user, tg);
+    }
+  }, [tg, user]);
+
   // Сохранение истории ходов
   const saveMove = useCallback(
     (x1, y1, x2, y2) => {
