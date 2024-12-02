@@ -1,4 +1,5 @@
 export default {
+  mock: true,
   initDataUnsafe: {
     user: {
       id: 130993895,
