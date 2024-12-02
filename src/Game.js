@@ -38,8 +38,8 @@ function Game() {
   useEffect(() => {
     localStorage.setItem("TheCreatures", JSON.stringify(board));
 
-    if (tg && user) {
-      tg.setHeaderColor("#42424C");
+    if (tg) {
+      tg.setHeaderColor("red");
       tg.setBackgroundColor("#42424C");
       tg.expand();
       tg.disableVerticalSwipes();
