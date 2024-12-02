@@ -1,5 +1,5 @@
 import tgMock from "./tg-object.mock";
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
 
 export function useTelegram() {
   const onClose = () => {
