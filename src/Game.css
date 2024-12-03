@@ -123,8 +123,10 @@
 .cell {
   width: 2.75rem;
   height: 2.75rem;
-  /* background: rgba(var(--dark-light), 1); */
-  border: 4px dotted rgba(var(--dark-light), 0.65);
+  background-image: url(./cell-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,12 +143,16 @@
   @media (min-width: 1024px) {
     width: 3.85rem;
     height: 3.85rem;
+    transition: none;
   }
 }
 
 .cell--empty {
-  border: 4px dotted rgba(var(--dark-light), 1);
-  background: rgba(var(--dark), 1);
+  background-color: rgba(var(--dark), 1);
+  background-image: url(./cell-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
   cursor: default;
 }
 
@@ -156,7 +162,6 @@
 }
 
 .cell--selected {
-  border-color: transparent;
   background-image: url(./selected-cell.svg);
   background-repeat: no-repeat;
   background-position: center center;
@@ -164,7 +169,10 @@
 }
 
 .cell--possible {
-  border-color: rgba(var(--active), 1);
+  background-image: url(./cell-possible.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
 }
 
 .cell:hover {

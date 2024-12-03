@@ -1,0 +1,25 @@
+<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_43_1125)">
+<rect x="18" width="8" height="2" fill="#4E4F57"/>
+<rect x="2" y="18" width="8" height="2" transform="rotate(90 2 18)" fill="#4E4F57"/>
+<rect x="44" y="18" width="8" height="2" transform="rotate(90 44 18)" fill="#4E4F57"/>
+<rect x="26" y="44" width="8" height="2" transform="rotate(-180 26 44)" fill="#4E4F57"/>
+<rect x="29" width="8" height="2" fill="#4E4F57"/>
+<rect x="2" y="29" width="8" height="2" transform="rotate(90 2 29)" fill="#4E4F57"/>
+<rect x="44" y="29" width="8" height="2" transform="rotate(90 44 29)" fill="#4E4F57"/>
+<rect x="15" y="44" width="8" height="2" transform="rotate(-180 15 44)" fill="#4E4F57"/>
+<rect x="7" width="8" height="2" fill="#4E4F57"/>
+<rect x="2" y="7" width="8" height="2" transform="rotate(90 2 7)" fill="#4E4F57"/>
+<rect x="44" y="7" width="8" height="2" transform="rotate(90 44 7)" fill="#4E4F57"/>
+<rect x="37" y="44" width="8" height="2" transform="rotate(-180 37 44)" fill="#4E4F57"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M-3.23464e-08 3.26L0 4L2 4L2 2L4 2L4 -1.74846e-07L3.26 -1.42499e-07C2.08323 -9.1061e-08 1.49485 -6.5342e-08 1.05029 0.239873C0.706875 0.425168 0.425168 0.706875 0.239873 1.05029C-1.09504e-07 1.49485 -8.37845e-08 2.08323 -3.23464e-08 3.26Z" fill="#4E4F57"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M44 40.74L44 40L42 40L42 42L40 42L40 44L40.74 44C41.9168 44 42.5051 44 42.9497 43.7601C43.2931 43.5748 43.5748 43.2931 43.7601 42.9497C44 42.5051 44 41.9168 44 40.74Z" fill="#4E4F57"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.74 0H40V2H42V4H44V3.26C44 2.08323 44 1.49485 43.7601 1.05029C43.5748 0.706875 43.2931 0.425169 42.9497 0.239873C42.5051 0 41.9168 0 40.74 0Z" fill="#4E4F57"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3.26 44L4 44L4 42L2 42L2 40L3.49691e-07 40L2.84998e-07 40.74C1.82122e-07 41.9168 1.30684e-07 42.5051 0.239874 42.9497C0.425169 43.2931 0.706875 43.5748 1.05029 43.7601C1.49485 44 2.08323 44 3.26 44Z" fill="#4E4F57"/>
+</g>
+<defs>
+<clipPath id="clip0_43_1125">
+<rect width="44" height="44" fill="white"/>
+</clipPath>
+</defs>
+</svg>
