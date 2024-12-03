@@ -37,6 +37,9 @@
 .remaining img {
   width: 72px;
   height: 26px;
+
+  @media (min-width: 1024px) {
+  }
 }
 
 .logotype {
@@ -55,7 +58,7 @@
 
   @media (min-width: 1024px) {
     min-height: 3.5rem;
-    background-size: contain;
+    background-size: auto;
   }
 }
 
@@ -138,6 +141,21 @@
   @media (min-width: 1024px) {
     width: 3.85rem;
     height: 3.85rem;
+  }
+}
+
+.cell img {
+  width: 1.35rem;
+  height: 1.35rem;
+
+  @media (min-width: 400px) {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 2rem;
+    height: 2rem;
   }
 }
 

@@ -33,6 +33,13 @@ function Game() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [moveHistory, setMoveHistory] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [creatures, setCreatures] = useState(() =>
+    INITIAL_BOARD.map((row) =>
+      row.map((cell) =>
+        cell === 1 ? Math.floor(Math.random() * 32) + 1 : null
+      )
+    )
+  );
   const { tg, user } = useTelegram();
 
   // Сохранение состояния игры при каждом изменении
@@ -78,6 +85,13 @@ function Game() {
   // Обработчик сброса игры
   const handleNewGame = useCallback(() => {
     setBoard(INITIAL_BOARD.map((row) => [...row]));
+    setCreatures(
+      INITIAL_BOARD.map((row) =>
+        row.map((cell) =>
+          cell === 1 ? Math.floor(Math.random() * 32) + 1 : null
+        )
+      )
+    );
     setSelected(null);
     setPossibleMoves([]);
     setMoveHistory([]);
@@ -140,6 +154,8 @@ function Game() {
   const movePiece = useCallback(
     (x1, y1, x2, y2) => {
       const newBoard = board.map((row) => [...row]);
+      const newCreatures = creatures.map((row) => [...row]);
+
       const middleX = (x1 + x2) / 2;
       const middleY = (y1 + y2) / 2;
 
@@ -147,12 +163,16 @@ function Game() {
       newBoard[middleY][middleX] = 0;
       newBoard[y2][x2] = 1;
 
-      // Сохраняем ход
-      saveMove(x1, y1, x2, y2);
+      // Перемещаем существ
+      newCreatures[y2][x2] = newCreatures[y1][x1];
+      newCreatures[y1][x1] = null;
+      newCreatures[middleY][middleX] = null;
 
+      saveMove(x1, y1, x2, y2);
       setBoard(newBoard);
+      setCreatures(newCreatures);
     },
-    [board, saveMove]
+    [board, creatures, saveMove]
   );
 
   const handleCellClick = useCallback(
@@ -191,11 +211,21 @@ function Game() {
     (cell, x, y) => {
       let className = "cell";
       let style = {};
+      let creatureImage = null;
 
       if (cell === "x") {
         className += " invalid";
       } else if (cell === 0) {
         className += " empty";
+      } else if (cell === 1) {
+        const creatureId = creatures[y][x];
+        creatureImage = (
+          <img
+            src={`/assets/creatures/c${creatureId}.svg`}
+            alt={`Creature ${creatureId}`}
+            className="creature-image"
+          />
+        );
       }
 
       if (selected && selected.x === x && selected.y === y) {
@@ -215,7 +245,7 @@ function Game() {
           style={style}
           onClick={() => handleCellClick(x, y)}
         >
-          {cell === 1 ? "●" : ""}
+          {creatureImage}
         </div>
       );
     },
