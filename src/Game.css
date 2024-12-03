@@ -124,7 +124,7 @@
   width: 2.75rem;
   height: 2.75rem;
   /* background: rgba(var(--dark-light), 1); */
-  border: 4px dotted rgba(var(--dark-light), 0.5);
+  border: 4px dotted rgba(var(--dark-light), 0.65);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -19,6 +19,15 @@ const DIRECTIONS = [
   { dx: 0, dy: 2 }, // Вниз
 ];
 
+const createCreatures = () => {
+  const allCreatures = Array.from({ length: 32 }, (_, i) => i + 1);
+  allCreatures.sort(() => 0.5 - Math.random());
+
+  return INITIAL_BOARD.map((row) =>
+    row.map((cell) => (cell === 1 ? allCreatures.pop() : null))
+  );
+};
+
 function Game() {
   // Загрузка последнего состояния игры из localStorage
   const getInitialBoard = () => {
@@ -33,15 +42,7 @@ function Game() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [moveHistory, setMoveHistory] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [creatures, setCreatures] = useState(() => {
-    // Создаем массив из 32 уникальных ID существ
-    const allCreatures = Array.from({ length: 32 }, (_, i) => i + 1);
-    const shuffledCreatures = allCreatures.sort(() => 0.5 - Math.random());
-
-    return INITIAL_BOARD.map((row) =>
-      row.map((cell) => (cell === 1 ? shuffledCreatures.pop() : null))
-    );
-  });
+  const [creatures, setCreatures] = useState(createCreatures);
   const { tg, user } = useTelegram();
 
   // Сохранение состояния игры при каждом изменении
@@ -87,13 +88,7 @@ function Game() {
   // Обработчик сброса игры
   const handleNewGame = useCallback(() => {
     setBoard(INITIAL_BOARD.map((row) => [...row]));
-    setCreatures(
-      INITIAL_BOARD.map((row) =>
-        row.map((cell) =>
-          cell === 1 ? Math.floor(Math.random() * 32) + 1 : null
-        )
-      )
-    );
+    setCreatures(createCreatures);
     setSelected(null);
     setPossibleMoves([]);
     setMoveHistory([]);
