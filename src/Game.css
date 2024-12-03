@@ -133,7 +133,7 @@
   font-size: 1.5rem;
   color: rgba(var(--light), 0.35);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 
   @media (min-width: 400px) {
     width: 3.25rem;
