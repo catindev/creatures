@@ -33,13 +33,15 @@ function Game() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [moveHistory, setMoveHistory] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [creatures, setCreatures] = useState(() =>
-    INITIAL_BOARD.map((row) =>
-      row.map((cell) =>
-        cell === 1 ? Math.floor(Math.random() * 32) + 1 : null
-      )
-    )
-  );
+  const [creatures, setCreatures] = useState(() => {
+    // Создаем массив из 32 уникальных ID существ
+    const allCreatures = Array.from({ length: 32 }, (_, i) => i + 1);
+    const shuffledCreatures = allCreatures.sort(() => 0.5 - Math.random());
+
+    return INITIAL_BOARD.map((row) =>
+      row.map((cell) => (cell === 1 ? shuffledCreatures.pop() : null))
+    );
+  });
   const { tg, user } = useTelegram();
 
   // Сохранение состояния игры при каждом изменении
@@ -210,46 +212,38 @@ function Game() {
   const renderCell = useCallback(
     (cell, x, y) => {
       let className = "cell";
-      let style = {};
-      let creatureImage = null;
-
+      if (selected && selected.x === x && selected.y === y) {
+        className += " cell--selected";
+      }
+      if (possibleMoves.some((move) => move.x === x && move.y === y)) {
+        className += " cell--possible";
+      }
       if (cell === "x") {
-        className += " invalid";
+        className += " cell--invalid";
       } else if (cell === 0) {
-        className += " empty";
-      } else if (cell === 1) {
-        const creatureId = creatures[y][x];
-        creatureImage = (
+        className += " cell--empty";
+      }
+
+      const creatureImage =
+        cell === 1 ? (
           <img
-            src={`/assets/creatures/c${creatureId}.svg`}
-            alt={`Creature ${creatureId}`}
+            src={`/assets/creatures/c${creatures[y][x]}.svg`}
+            alt={`Creature ${creatures[y][x]}`}
             className="creature-image"
           />
-        );
-      }
-
-      if (selected && selected.x === x && selected.y === y) {
-        style.background = "rgba(var(--dark-light),1)";
-        style.borderColor = "rgba(var(--light),1)";
-        style.color = "rgba(var(--light),1)";
-      }
-
-      if (possibleMoves.some((move) => move.x === x && move.y === y)) {
-        style.borderColor = "rgba(var(--active),1)";
-      }
+        ) : null;
 
       return (
         <div
           key={`${x}-${y}`}
           className={className}
-          style={style}
           onClick={() => handleCellClick(x, y)}
         >
           {creatureImage}
         </div>
       );
     },
-    [selected, possibleMoves, handleCellClick]
+    [selected, possibleMoves, handleCellClick, creatures]
   );
 
   const remaining = board.flat().filter((cell) => cell === 1).length;
