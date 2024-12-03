@@ -207,6 +207,8 @@ function Game() {
   const renderCell = useCallback(
     (cell, x, y) => {
       let className = "cell";
+      const isSelectable = cell === 1; // Cells with value 1 are selectable
+
       if (selected && selected.x === x && selected.y === y) {
         className += " cell--selected";
       }
@@ -232,6 +234,7 @@ function Game() {
         <div
           key={`${x}-${y}`}
           className={className}
+          data-selectable={isSelectable && !isGameOver} // Add this line
           onClick={() => handleCellClick(x, y)}
         >
           {creatureImage}

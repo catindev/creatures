@@ -175,9 +175,8 @@
   background-size: 100%;
 }
 
-.cell:hover {
+.cell[data-selectable="true"]:hover {
   animation: bounce 0.35s ease-in-out;
-
   @media (min-width: 1024px) {
     animation: none;
   }
